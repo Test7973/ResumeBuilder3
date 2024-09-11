@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using System.Text;
 
 namespace ResumeBuilder3
 {
@@ -17,23 +18,37 @@ namespace ResumeBuilder3
             string designation = TextBoxDesignation.Text;
             string experience = TextBoxExperience.Text;
             string projects = TextBoxProjects.Text;
+            string education = TextBoxEducation.Text;
             string socialLinks = TextBoxSocialLinks.Text;
 
             // Generate the portfolio content
-            string portfolio = GeneratePortfolio(fullName, designation, experience, projects, socialLinks);
+            string portfolio = GeneratePortfolio(fullName, designation, experience, projects, education, socialLinks);
 
-            // Display the portfolio in the Label control
-            LabelOutput.Text = portfolio.Replace("\n", "<br/>");
+            // Display the portfolio in the Literal control
+            LiteralOutput.Text = portfolio;
         }
 
-        // Function to generate the portfolio as a formatted string
-        private string GeneratePortfolio(string fullName, string designation, string experience, string projects, string socialLinks)
+        // Function to generate the portfolio as formatted HTML
+        private string GeneratePortfolio(string fullName, string designation, string experience, string projects, string education, string socialLinks)
         {
-            return $"<strong>Full Name:</strong> {fullName}\n" +
-                   $"<strong>Designation:</strong> {designation}\n" +
-                   $"<strong>Experience:</strong> {experience}\n" +
-                   $"<strong>Projects:</strong> {projects}\n" +
-                   $"<strong>Social Links:</strong> {socialLinks}";
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($"<h3>{fullName}</h3>");
+            sb.Append($"<p><strong>{designation}</strong></p>");
+
+            sb.Append("<h4>Professional Summary</h4>");
+            sb.Append($"<p>{experience}</p>");
+
+            sb.Append("<h4>Key Projects</h4>");
+            sb.Append($"<p>{projects.Replace("\n", "<br>")}</p>");
+
+            sb.Append("<h4>Education</h4>");
+            sb.Append($"<p>{education.Replace("\n", "<br>")}</p>");
+
+            sb.Append("<h4>Professional Links</h4>");
+            sb.Append($"<p>{socialLinks.Replace("\n", "<br>")}</p>");
+
+            return sb.ToString();
         }
     }
 }

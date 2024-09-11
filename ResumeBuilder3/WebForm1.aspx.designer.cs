@@ -8,6 +8,8 @@
         protected global::System.Web.UI.WebControls.TextBox TextBoxProjects;
         protected global::System.Web.UI.WebControls.TextBox TextBoxSocialLinks;
         protected global::System.Web.UI.WebControls.Label LabelOutput;
+        protected global::System.Web.UI.WebControls.Label LiteralOutput;
+        protected global::System.Web.UI.WebControls.Label TextBoxEducation;
     }
 }
     
