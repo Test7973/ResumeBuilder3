@@ -11,7 +11,7 @@ namespace ResumeBuilder3
             // This is called when the page is loaded or refreshed
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void ButtonSubmit_Click(object sender, EventArgs e)
         {
             // Retrieve input values from the textboxes
             string fullName = TextBoxFullName.Text;
@@ -24,8 +24,10 @@ namespace ResumeBuilder3
             // Generate the portfolio content
             string portfolio = GeneratePortfolio(fullName, designation, experience, projects, education, socialLinks);
 
-            // Display the portfolio in the Literal control
-            LiteralOutput.Text = portfolio;
+            // You can decide what to do with the generated portfolio here.
+            // For example, you could save it to a file, send it via email, or display it in a new page.
+            // For now, we'll just display an alert to the user.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Portfolio generated successfully!');", true);
         }
 
         // Function to generate the portfolio as formatted HTML
@@ -33,20 +35,23 @@ namespace ResumeBuilder3
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append($"<h3>{fullName}</h3>");
-            sb.Append($"<p><strong>{designation}</strong></p>");
+            sb.Append("<div class='portfolio'>");
+            sb.Append($"<h1>{fullName}</h1>");
+            sb.Append($"<h2>{designation}</h2>");
 
-            sb.Append("<h4>Professional Summary</h4>");
-            sb.Append($"<p>{experience}</p>");
+            sb.Append("<section><h3>Professional Summary</h3>");
+            sb.Append($"<p>{experience}</p></section>");
 
-            sb.Append("<h4>Key Projects</h4>");
-            sb.Append($"<p>{projects.Replace("\n", "<br>")}</p>");
+            sb.Append("<section><h3>Key Projects</h3>");
+            sb.Append($"<p>{projects.Replace("\n", "<br>")}</p></section>");
 
-            sb.Append("<h4>Education</h4>");
-            sb.Append($"<p>{education.Replace("\n", "<br>")}</p>");
+            sb.Append("<section><h3>Education</h3>");
+            sb.Append($"<p>{education.Replace("\n", "<br>")}</p></section>");
 
-            sb.Append("<h4>Professional Links</h4>");
-            sb.Append($"<p>{socialLinks.Replace("\n", "<br>")}</p>");
+            sb.Append("<section><h3>Professional Links</h3>");
+            sb.Append($"<p>{socialLinks.Replace("\n", "<br>")}</p></section>");
+
+            sb.Append("</div>");
 
             return sb.ToString();
         }
